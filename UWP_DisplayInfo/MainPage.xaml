@@ -9,11 +9,30 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Margin="10" ItemsSource="{x:Bind ViewModel.DisplayInfoItems}" SelectedItem="{x:Bind ViewModel.SelectedInfoModel, Mode=TwoWay}">
+        <Grid Margin="20" Grid.ColumnSpan="2" Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" Padding="20" CornerRadius="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <FontIcon Grid.RowSpan="2" Glyph="&#xE7F4;" Foreground="{ThemeResource SystemColorControlAccentBrush}" FontSize="24" HorizontalAlignment="Center" Margin="8,0"/>
+            <TextBlock Grid.Column="1" Text="Current monitor where the app shows on" Style="{ThemeResource InfoHeaderTextBlockStyle}"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.AppAssociatedInfoModel.DisplayName, FallbackValue= N/A, Mode=OneWay}" 
+                       Style="{ThemeResource InfoBodyTextBlockStyle}"
+                       TextTrimming="CharacterEllipsis"/>
+        </Grid>
+        <ListView Grid.Row="1" Margin="10" ItemsSource="{x:Bind ViewModel.DisplayInfoItems}" SelectedItem="{x:Bind ViewModel.SelectedInfoModel, Mode=TwoWay}">
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="local:DisplayInfoModel">
                     <Grid>
@@ -22,7 +41,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ScrollViewer Grid.Column="1">
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
             <StackPanel Spacing="10" Margin="20">
                 <local:TextPropertyItem Glyph="&#xE7F4;" Header="Monitor Display Name" Text="{x:Bind ViewModel.SelectedInfoModel.DisplayName, Mode=OneWay}"/>
                 <local:TextPropertyItem Glyph="&#xE7F4;" Header="Monitor Device Id" Text="{x:Bind ViewModel.SelectedInfoModel.MonitorDeviceId, Mode=OneWay}"/>

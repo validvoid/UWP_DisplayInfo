@@ -3,6 +3,8 @@ using System.Linq;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Windows.Devices.Display;
 using Windows.Devices.Display.Core;
+using Windows.UI.ViewManagement;
+using Windows.UI.WindowManagement;
 
 namespace UWP_DisplayInfo
 {
@@ -16,6 +18,14 @@ namespace UWP_DisplayInfo
         {
             get => selectedInfoModel;
             set => SetProperty(ref selectedInfoModel, value, true);
+        }
+
+        private DisplayInfoModel appAssociatedInfoModel;
+
+        public DisplayInfoModel AppAssociatedInfoModel
+        {
+            get => appAssociatedInfoModel;
+            set => SetProperty(ref appAssociatedInfoModel, value, true);
         }
 
         public void LoadDisplayInfo()
@@ -78,6 +88,12 @@ namespace UWP_DisplayInfo
             if (DisplayInfoItems.Any())
             {
                 SelectedInfoModel = DisplayInfoItems.First();
+
+                var displayRegions = ApplicationView.GetForCurrentView().WindowingEnvironment.GetDisplayRegions();
+
+                var firstDisplayRegion = displayRegions.First();
+
+                AppAssociatedInfoModel = DisplayInfoItems.First(x => string.Equals(x.MonitorDeviceId, firstDisplayRegion.DisplayMonitorDeviceId));
             }
         }
     }

@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="{x:Bind Glyph, Mode=OneWay}" Foreground="{ThemeResource SystemColorControlAccentBrush}"
+        <FontIcon Glyph="{x:Bind Glyph, Mode=OneWay}" Foreground="{ThemeResource SystemColorControlAccentBrush}"
                   VerticalAlignment="Center" Margin="5" />
         <TextBlock Text="{x:Bind Header, Mode=OneWay}" Style="{ThemeResource InfoHeaderTextBlockStyle}" Grid.Column="1" VerticalAlignment="Center" />
         <Button x:Name="CopyButton" Click="OnClickCopy" Grid.Column="1" Grid.Row="1"
