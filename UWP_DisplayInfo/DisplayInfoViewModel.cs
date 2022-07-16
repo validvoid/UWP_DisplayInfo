@@ -36,7 +36,16 @@ namespace UWP_DisplayInfo
                     // DisplayMonitor displayMonitor = await DisplayMonitor.FromInterfaceIdAsync(target.DeviceInterfacePath);
                     DisplayMonitor displayMonitor = target.TryGetMonitor();
 
-                    model.DisplayName = displayMonitor?.DisplayName;
+                    // Compose a fallback name for monitor with a empty display name
+                    if (string.IsNullOrWhiteSpace(displayMonitor?.DisplayName))
+                    {
+                        model.DisplayName = $"{displayMonitor?.ConnectionKind.ToString()} Monitor";
+                    }
+                    else
+                    {
+                        model.DisplayName = displayMonitor?.DisplayName;
+                    }
+                    
                     model.MonitorDeviceId = displayMonitor?.DeviceId;
                     model.ConnectionKind = displayMonitor?.ConnectionKind.ToString();
                     model.PhysicalConnector = displayMonitor?.PhysicalConnector.ToString();
